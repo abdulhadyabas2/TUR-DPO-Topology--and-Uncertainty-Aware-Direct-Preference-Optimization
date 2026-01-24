@@ -1,0 +1,37 @@
+[
+    {
+        "prompt": "What is 15 + 27?",
+        "chosen": "To solve 15 + 27, I'll break it down step by step:\n\n1. First, I'll add the ones place: 5 + 7 = 12\n2. This gives me 2 in the ones place and I carry the 1 to the tens place\n3. Now I add the tens: 1 + 2 + 1 (carried) = 4\n4. So the answer is 42\n\nTherefore, 15 + 27 = 42",
+        "rejected": "15 + 27 = 43",
+        "task_score_chosen": 1.0,
+        "task_score_rejected": 0.0
+    },
+    {
+        "prompt": "If a train travels at 60 mph for 2.5 hours, how far does it go?",
+        "chosen": "To find the distance, I need to use the formula:\n\nDistance = Speed × Time\n\nGiven:\n- Speed = 60 mph\n- Time = 2.5 hours\n\nCalculation:\nDistance = 60 × 2.5 = 150 miles\n\nThe train travels 150 miles.",
+        "rejected": "The train goes really far, probably about 100 miles or so.",
+        "task_score_chosen": 1.0,
+        "task_score_rejected": 0.0
+    },
+    {
+        "prompt": "Explain why the sky is blue.",
+        "chosen": "The sky appears blue due to a phenomenon called Rayleigh scattering.\n\n1. Sunlight contains all colors of the visible spectrum\n2. When sunlight enters Earth's atmosphere, it collides with gas molecules\n3. Shorter wavelengths (blue and violet) scatter more than longer wavelengths (red and orange)\n4. Blue light scatters approximately 5.5 times more than red light\n5. Although violet scatters even more, our eyes are more sensitive to blue, and some violet is absorbed in the upper atmosphere\n\nThis is why we perceive the sky as blue during the day.",
+        "rejected": "The sky is blue because it reflects the ocean.",
+        "task_score_chosen": 1.0,
+        "task_score_rejected": 0.0
+    },
+    {
+        "prompt": "What is the capital of France?",
+        "chosen": "The capital of France is Paris. Paris is located in northern France along the Seine River and has been the capital since the 10th century. It is also the largest city in France with a population of over 2 million in the city proper and over 12 million in the metropolitan area.",
+        "rejected": "The capital of France is Lyon.",
+        "task_score_chosen": 1.0,
+        "task_score_rejected": 0.0
+    },
+    {
+        "prompt": "Solve for x: 2x + 5 = 13",
+        "chosen": "I'll solve this step by step:\n\n2x + 5 = 13\n\nStep 1: Subtract 5 from both sides\n2x + 5 - 5 = 13 - 5\n2x = 8\n\nStep 2: Divide both sides by 2\n2x/2 = 8/2\nx = 4\n\nLet me verify: 2(4) + 5 = 8 + 5 = 13 ✓\n\nTherefore, x = 4",
+        "rejected": "x = 4 because 2 times 4 is 8 plus 5 is 13",
+        "task_score_chosen": 1.0,
+        "task_score_rejected": 0.8
+    }
+]

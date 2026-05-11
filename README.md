@@ -33,59 +33,26 @@ For each candidate response, TUR-DPO:
 ### Figure 1 -- RLHF vs. DPO vs. TUR-DPO
 
 <p align="center">
-  <img src="images/Fig3.png" width="90%" alt="Overview of RLHF, DPO, and TUR-DPO"/>
+  <img src="images/Fig1_pipeline.png" width="95%" alt="Comparison of RLHF, DPO, and TUR-DPO pipelines"/>
 </p>
 
-> RLHF trains a reward model from preference data and optimizes the policy via PPO with KL
-> regularization. DPO replaces this with a direct, RL-free preference objective. **TUR-DPO**
-> augments DPO by incorporating lightweight reasoning topology, semantic, and uncertainty signals
-> into a shaped reward and uncertainty-weighted DPO loss.
+> **Left:** RLHF trains a reward model and optimizes via PPO with KL regularization.
+> **Centre:** DPO replaces this with a direct, RL-free preference objective.
+> **Right:** TUR-DPO augments DPO by incorporating reasoning topology, semantic faithfulness,
+> and calibrated uncertainty signals into a shaped reward and uncertainty-weighted loss.
 
 ---
 
-### Figure 2 -- Faithfulness and Structural Coherence
+### Figure 2 -- TUR-DPO Framework
 
 <p align="center">
-  <img src="images/Fig3a.png" width="47%" alt="Faithfulness metrics"/>
-  &nbsp;&nbsp;
-  <img src="images/Fig3b.png" width="47%" alt="Structural coherence metrics"/>
+  <img src="images/Fig2_framework.png" width="95%" alt="TUR-DPO full framework architecture"/>
 </p>
 
-> Left: Faithfulness metrics (lower is better).
-> Right: Structural coherence metrics (higher is better).
-> TUR-DPO reduces entity/claim error rates and improves topology scores over SFT and DPO.
-
----
-
-### Figure 3 -- Calibration and Ablation Studies
-
-<p align="center">
-  <img src="images/fig_calibration_ablation.png" width="90%" alt="Calibration and ablation"/>
-</p>
-
-> Left: Calibration quality (ECE and Brier score) across SFT, DPO, and TUR-DPO -- lower is better.
-> Right: Component ablation showing that both topology rewards and uncertainty weighting are
-> necessary for full performance.
-
----
-
-### Figure 4 -- Hyperparameter Sensitivity
-
-<p align="center">
-  <img src="images/Fig4a.jpg" width="45%" alt="Effect of temperature beta"/>
-  &nbsp;&nbsp;
-  <img src="images/Fig4b.jpg" width="45%" alt="Faithfulness vs Diversity trade-off"/>
-</p>
-<p align="center">
-  <img src="images/Fig4c.jpg" width="45%" alt="Calibration vs Convergence Speed"/>
-  &nbsp;&nbsp;
-  <img src="images/Fig4d.jpg" width="45%" alt="Effect of weight mapping tau_w"/>
-</p>
-
-> (a) Temperature beta -- broad optimum near beta=2.0.
-> (b) Reward mixing gamma -- faithfulness/diversity trade-off, best near gamma=1.0.
-> (c) Uncertainty penalty lambda -- improves calibration up to lambda=0.5.
-> (d) Weight-mapping tau_w -- performance is robust and stable across wide ranges.
+> The TUR-DPO pipeline: (1) a frozen auxiliary LLM decomposes each candidate response into an
+> atomic reasoning graph; (2) topology quality, semantic faithfulness, and uncertainty are computed
+> offline; (3) these signals are combined into a shaped reward that augments the DPO logit margin;
+> (4) per-pair uncertainty weights attenuate noisy preferences during training.
 
 ---
 

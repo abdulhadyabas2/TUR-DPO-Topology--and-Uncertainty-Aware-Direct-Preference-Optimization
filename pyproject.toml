@@ -10,7 +10,10 @@ readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.8"
 authors = [
-    {name = "TUR-DPO Authors", email = "turdpo@example.com"}
+    {name = "Abdulhady Abas Abdullah"},
+    {name = "Fatemeh Daneshfar"},
+    {name = "Seyedali Mirjalili"},
+    {name = "Mourad Oussalah"}
 ]
 keywords = [
     "machine learning",
@@ -62,8 +65,8 @@ docs = [
 all = ["turdpo[dev,docs]"]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/turdpo"
-Documentation = "https://turdpo.readthedocs.io"
+Homepage = "https://arxiv.org/pdf/2605.00224"
+Paper = "https://arxiv.org/pdf/2605.00224"
 Repository = "https://github.com/yourusername/turdpo"
 Issues = "https://github.com/yourusername/turdpo/issues"
 

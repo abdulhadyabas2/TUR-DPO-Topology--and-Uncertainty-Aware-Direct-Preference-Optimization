@@ -3,17 +3,46 @@ Loss Module for TUR-DPO
 
 This module implements the TUR-DPO loss functions for training.
 
+Preliminary -- Standard DPO:
+    Standard DPO (Rafailov et al., 2023) optimizes preferences in closed form.
+    Given a reference policy pi_ref and pairwise preferences (x, y+, y-):
+
+        L_DPO = -log sigma(beta * [log pi_theta(y+|x)/pi_ref(y+|x)
+                                  - log pi_theta(y-|x)/pi_ref(y-|x)])
+
+    The implicit reward under DPO is:
+        r*(x, y) = beta * log(pi_theta(y|x) / pi_ref(y|x)) + beta * log Z(x)
+
+    where Z(x) is a partition function that cancels in pairwise differences.
+
+TUR-DPO -- Formal Generalization of DPO:
+    TUR-DPO does NOT train a separate reward model. Instead, it augments the
+    DPO margin with a static, offline-computed shaped reward r_phi(x, y, G).
+
+    Proof sketch (Rebuttal W4, Reviewer 2):
+    1. Starting Point -- we define a structurally-shaped RLHF objective:
+         J(pi) = E[gamma * r_phi(x, y, G)] - (1/beta) * KL(pi || pi_ref)
+    2. The closed-form optimal policy (Gibbs policy) is:
+         pi*(y|x) ~ pi_ref(y|x) * exp(beta * gamma * r_phi(x, y, G))
+    3. Inserting into Bradley-Terry, Z(x) cancels in pairwise differences:
+         P(y+ > y-) = sigma(beta * [D_log_pi - D_log_pi_ref] + gamma * D_r_phi)
+    4. Negative log-likelihood of this preference model yields Eq. 9.
+    5. When gamma = 0, the shaped reward vanishes and TUR-DPO reduces to DPO.
+
+    The topological reward serves as an offline static margin, preserving the
+    implicit reward mode of DPO while adding structural information.
+
 Based on Equations (9), (10), and (11) from the paper:
 
 Pairwise loss (Eq. 9):
-    L_TUR-DPO = -w * log σ(β * [Δlog π_θ - Δlog π_ref] + γ * Δr_φ)
+    L_TUR-DPO = -w * log sigma(beta * [D_log_pi_theta - D_log_pi_ref] + gamma * D_r_phi)
 
 Listwise loss (Eq. 10):
-    L_list = -w * Σ_i log [exp(z_i) / Σ_j exp(z_j)]
-    where z_i = β * (log π_θ(y_i|x) - log π_ref(y_i|x)) + γ * r_φ(x, y_i, G_i)
+    L_list = -w * sum_i log [exp(z_i) / sum_j exp(z_j)]
+    where z_i = beta * (log pi_theta(y_i|x) - log pi_ref(y_i|x)) + gamma * r_phi(x, y_i, G_i)
 
 Margin definition (Eq. 11):
-    m_θ = β * [Δlog π_θ - Δlog π_ref] + γ * Δr_φ
+    m_theta = beta * [D_log_pi_theta - D_log_pi_ref] + gamma * D_r_phi
 """
 
 import torch

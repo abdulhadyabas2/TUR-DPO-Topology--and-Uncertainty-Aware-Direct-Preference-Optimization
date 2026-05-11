@@ -1,29 +1,35 @@
 {
+    "_comment": "TUR-DPO Default Configuration",
+    "_comment_tiers": "Hyperparameters follow a three-tier selection framework (Rebuttal to Reviewer 2 W3)",
+
     "model_name": "meta-llama/Llama-2-7b-hf",
     "reference_model": null,
-    
-    "beta": 2.0,
-    "gamma": 1.0,
-    "a": 0.6,
-    "lambda_uncertainty": 0.5,
-    
+
+    "_tier1_comment": "Tier 1: Calibrated once offline on 2% held-out split",
     "alpha_path": 1.0,
     "alpha_cycle": 0.5,
     "alpha_dangling": 0.3,
     "alpha_contradict": 0.4,
-    
+
+    "_tier2_comment": "Tier 2: Tuned via minimal validation grid search",
+    "beta": 2.0,
+    "gamma": 1.0,
+    "a": 0.6,
+    "lambda_uncertainty": 0.5,
+
+    "_tier3_comment": "Tier 3: Fixed globally across all tasks and datasets",
     "lambda_epi": 0.5,
     "lambda_ale": 0.5,
     "tau_smoothing": 0.05,
-    
     "tau_w": 1.2,
     "w_min": 0.05,
-    
     "k_samples": 3,
-    
+
+    "_reference_policy": "EMA reference update (decay rho = 0.995)",
     "use_ema_reference": true,
     "ema_decay": 0.995,
-    
+
+    "_training": "Training hyperparameters (AdamW, cosine warmup)",
     "learning_rate": 1e-6,
     "weight_decay": 0.1,
     "warmup_steps": 2000,
@@ -31,18 +37,36 @@
     "gradient_accumulation_steps": 4,
     "max_grad_norm": 1.0,
     "batch_size": 4,
-    
+
+    "_sequence": "Sequence length limits",
     "max_length": 2048,
     "max_prompt_length": 512,
-    
+
+    "_logging": "Logging and evaluation intervals",
     "eval_steps": 500,
     "save_steps": 2000,
     "logging_steps": 100,
-    
+
+    "_listwise": "Listwise training (Eq. 10)",
     "use_listwise": false,
     "num_candidates": 4,
-    
+
+    "_reproducibility": "Seeds and precision",
     "seed": 42,
+    "seeds_for_variance": [42, 1337, 2024],
     "bf16": true,
-    "fp16": false
+    "fp16": false,
+
+    "_resource_reference": "Resource benchmarks (single A100, 614k pairs)",
+    "_peak_vram_gb": 41.6,
+    "_throughput_tok_per_s": 1210,
+    "_wall_time_hrs": 52,
+
+    "_supported_models": [
+        "meta-llama/Llama-2-7b-hf",
+        "meta-llama/Meta-Llama-3-8B",
+        "mistralai/Mistral-7B-v0.3",
+        "google/gemma-7b",
+        "meta-llama/Meta-Llama-3-70B"
+    ]
 }
